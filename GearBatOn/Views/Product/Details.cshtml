@@ -1,0 +1,55 @@
+﻿@model GearBatOn.Models.Product
+
+@{
+    ViewBag.Title = "Chi tiết sản phẩm";
+    Layout = "~/Views/Shared/_StaffLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Sản phẩm</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">Mã sản phẩm</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Id)</dd>
+
+        <dt class="col-sm-3">Tên sản phẩm</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Name)</dd>
+
+        <dt class="col-sm-3">Danh mục</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Category.Name)</dd>
+
+        <dt class="col-sm-3">Nơi sản xuất</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Country.Name)</dd>
+
+        <dt class="col-sm-3">Hãng sản xuất</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Brand.Name)</dd>
+
+        <dt class="col-sm-3">Giá</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Price)</dd>
+
+        <dt class="col-sm-3">Thời gian bảo hành</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.WarrantyPeriod)/Tháng</dd>
+
+        <dt class="col-sm-3">Tồn kho</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Inventory)</dd>
+
+        <dt class="col-sm-3">Hình ảnh</dt>
+        <dd class="col-sm-9">
+            @foreach (var item in Model.ListImage)
+            {
+                <img src="@Url.Content(item.ImagePath)" height="150" width="150"/>
+            }
+        </dd>
+
+        <dt class="col-sm-3">Mô tả sản phẩm</dt>
+        <dd class="col-sm-9">
+            <div id="description-product">@Html.Raw(Model.Description)</div>
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Sửa", "Edit", new { id = Model.Id }, htmlAttributes: new { @class = "btn btn-primary", type = "button" })
+    @Html.ActionLink("Quay trở lại danh sách", "Index", routeValues: null, htmlAttributes: new { @class = "btn btn-primary", type = "button" })
+</p>

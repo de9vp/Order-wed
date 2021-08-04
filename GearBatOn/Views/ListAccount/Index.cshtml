@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewBag.Title = "Quản lý tài khoản";
+    Layout = "~/Views/Shared/_StaffLayout.cshtml";
+}
+
+<h2>Quản lý tài khoản</h2>
+
+<div id="list-accounts"></div>
+
+@section scripts
+{
+    <script>
+        Paging(1);
+        function Paging(page) {
+            $.ajax({
+                url: "/ListAccount/PartialAccount",
+                type: "GET",
+                data: { page: page },
+                success: function (data) {
+                    $("#list-accounts").empty().append(data);
+                },
+                error: function (xhr, status, error) {
+                    alert(xhr.responseText);
+                }
+            })
+        }
+    </script>
+}
+

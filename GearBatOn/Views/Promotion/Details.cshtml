@@ -1,0 +1,30 @@
+﻿@model GearBatOn.Models.Promotion
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_StaffLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Promotion</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">Mã</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Id)</dd>
+
+        <dt class="col-sm-3">Tên khuyến mãi</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Name)</dd>
+
+        <dt class="col-sm-3">Mã khuyến mãi</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.PromoCode)</dd>
+
+        <dt class="col-sm-3">Tỷ lệ</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Ratio)</dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Sửa", "Edit", new { id = Model.Id }, htmlAttributes: new { @class = "btn btn-primary", type = "button" })
+    @Html.ActionLink("Quay trở lại danh sách", "Index", routeValues: null, htmlAttributes: new { @class = "btn btn-primary", type = "button" })
+</p>

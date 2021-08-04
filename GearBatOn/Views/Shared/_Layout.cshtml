@@ -1,0 +1,96 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    <script src="https://kit.fontawesome.com/814924e569.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header class="p-3 text-light bg-dark fixed-top">
+        <div class="container">
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+                    <img src="@Url.Content("~/Images/logo.png")" width="40" height="32" />
+                </a>
+
+                <ul></ul>
+                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                    <li id="category"></li>
+                    <li id="brand"></li>
+                    <li><a href="/Home/ListProduct/" class="nav-link px-2 text-light">Xem tất cả sản phẩm</a></li>
+                    <li>@Html.ActionLink("Liên hệ", "Contact", "Home", new { area = "" }, new { @class = "nav-link px-2 text-light" })</li>
+                </ul>
+
+                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" action="/Home/ListProduct/" method="get">
+                    <input name="query" type="search" class="form-control form-control-dark" placeholder="Tìm kiếm..." aria-label="Search">
+                </form>
+
+                @Html.Partial("_LoginPartial")
+
+                <div id="cart">
+                    @Html.Partial("~/Views/Home/Cart.cshtml")
+                </div>
+            </div>
+        </div>
+    </header>
+    <main class="flex-shrink-0">
+        <div class="container">
+            @RenderBody()
+        </div>
+    </main>
+    <footer class="footer mt-auto py-3 bg-light">
+        <div class="container text-center">
+            <span class="text-muted"><small>Copyright &copy; @DateTime.Now.Year - GearBatOn</small></span>
+        </div>
+    </footer>
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <script>
+        $.ajax({
+            url: "/Home/PartialListCategory",
+            type: "GET",
+            success: function (data) {
+                $("#category").empty().append(data);
+            },
+            error: function (xhr, status, error) {
+                alert(xhr.responseText);
+            }
+        });
+        $.ajax({
+            url: "/Home/PartialListBrand",
+            type: "GET",
+            success: function (data) {
+                $("#brand").empty().append(data);
+            },
+            error: function (xhr, status, error) {
+                alert(xhr.responseText);
+            }
+        });
+
+        function RemoveFromCart(id) {
+            $.ajax({
+                url: "/Home/RemoveFromCart",
+                type: "POST",
+                data: { Id: id},
+                success: function (data) {
+                    ReloadCart();
+                }
+            });
+        }
+
+        function ReloadCart() {
+            $.ajax({
+                url: "/Home/Cart",
+                type: "GET",
+                success: function (data) {
+                    $("#cart").empty().append(data);
+                }
+            });
+        }
+    </script>
+</body>
+</html>

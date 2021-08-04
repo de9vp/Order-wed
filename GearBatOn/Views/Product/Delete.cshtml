@@ -1,0 +1,54 @@
+﻿@model GearBatOn.Models.Product
+
+@{
+    ViewBag.Title = "Xóa sản phẩm";
+    Layout = "~/Views/Shared/_StaffLayout.cshtml";
+}
+
+<h2>Xóa sản phẩm</h2>
+
+<h3>Bạn có chắc muốn xóa sản phẩm này không?</h3>
+<div>
+    <h4>Sản phẩm</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">Mã sản phẩm</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Id)</dd>
+
+        <dt class="col-sm-3">Tên sản phẩm</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Name)</dd>
+
+        <dt class="col-sm-3">Danh mục</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Category.Id)</dd>
+
+        <dt class="col-sm-3">Nước sản xuất</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Country.Id)</dd>
+
+        <dt class="col-sm-3">Hãng</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Brand.Id)</dd>
+
+        <dt class="col-sm-3">Giá</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Price)</dd>
+
+        <dt class="col-sm-3">Thời gian bảo hàng</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.WarrantyPeriod)/Tháng</dd>
+
+        <dt class="col-sm-3">Tồn kho</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Inventory)</dd>
+
+        <dt class="col-sm-3">Mô tả sản phẩm</dt>
+        <dd class="col-sm-9">
+            @Html.TextAreaFor(model => model.Description, 20, 40, htmlAttributes: new { style = "width: 100%; max-width: 100%;", @class = "form-control" })
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Xóa" class="btn btn-danger" />
+            @Html.ActionLink("Quay trở lại danh sách", "Index", routeValues: null, htmlAttributes: new { @class = "btn btn-primary", type = "button" })
+        </div>
+    }
+</div>

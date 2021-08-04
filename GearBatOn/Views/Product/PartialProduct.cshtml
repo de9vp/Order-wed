@@ -1,0 +1,41 @@
+﻿@model IEnumerable<GearBatOn.Models.Product>
+
+<table class="table table-bordered border-primary">
+    <thead>
+        <tr>
+            <th scope="col">Mã</th>
+            <th scope="col">Tên sản phẩm</th>
+            <th scope="col">Danh mục</th>
+            <th scope="col">Sản xuất</th>
+            <th scope="col">Hãng</th>
+            <th scope="col">Giá</th>
+            <th scope="col">Thời gian bảo hành</th>
+            <th scope="col">Tồn kho</th>
+            <th scope="col">Hình ảnh</th>
+            <th scope="col">Sửa/Chi tiết/Xóa</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th scope="row">@Html.DisplayFor(modelItem => item.Id)</th>
+                <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                <td>@Html.DisplayFor(modelItem => item.Category.Name)</td>
+                <td>@Html.DisplayFor(modelItem => item.Country.Name)</td>
+                <td>@Html.DisplayFor(modelItem => item.Brand.Name)</td>
+                <td>@Html.DisplayFor(modelItem => item.Price)</td>
+                <td>@Html.DisplayFor(modelItem => item.WarrantyPeriod)/Tháng</td>
+                <td>@Html.DisplayFor(modelItem => item.Inventory)</td>
+                <td><img src="@Url.Content(item.FeatureImage ?? "~/Images/empty-image.png")" height="150" width="150"/></td>
+                <td>
+                    @Html.ActionLink("Sửa", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Chi tiết", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Xóa", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@Html.Raw(ViewBag.Paging)

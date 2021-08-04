@@ -1,0 +1,33 @@
+﻿
+@{
+    ViewBag.Title = "Quản lý hãng sản xuất";
+    Layout = "~/Views/Shared/_StaffLayout.cshtml";
+}
+
+<h2>Quản lý hãng sản xuất</h2>
+
+<p>
+    @Html.ActionLink("Tạo mới", "Create", routeValues: null, htmlAttributes: new { @class = "btn btn-primary", type = "button" })
+</p>
+ 
+<div id="brand"></div>
+
+@section scripts
+{
+    <script>
+        Paging(1);
+        function Paging(page) {
+            $.ajax({
+                url: "/Brand/PartialBrand",
+                type: "GET",
+                data: { page: page },
+                success: function (data) {
+                    $("#brand").empty().append(data);
+                },
+                error: function (xhr, status, error) {
+                    alert(xhr.responseText);
+                }
+            })
+        }
+    </script>
+}

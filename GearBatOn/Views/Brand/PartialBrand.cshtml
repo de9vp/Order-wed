@@ -1,0 +1,27 @@
+﻿@model IEnumerable<GearBatOn.Models.Brand>
+
+<table class="table table-bordered border-primary">
+    <thead>
+        <tr>
+            <th scope="col">Mã</th>
+            <th scope="col">Tên hãng</th>
+            <th scope="col">Sửa/Chi tiết/Xóa</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th scope="row">@Html.DisplayFor(modelItem => item.Id)</th>
+                <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                <td>
+                    @Html.ActionLink("Sửa", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Chi tiết", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Xóa", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@Html.Raw(ViewBag.Paging)

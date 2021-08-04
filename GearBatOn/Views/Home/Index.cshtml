@@ -1,0 +1,69 @@
+﻿@{
+    ViewBag.Title = "Gear Bất Ổn";
+}
+
+@Html.Partial("~/Views/Home/MegaMenu.cshtml")
+<div style="height: 1rem"></div>
+<div id="list-pc" class="row g-3 card-group align-items-center">
+    <nav class="navbar navbar-light bg-danger navbar-title text-light">
+        <h2>PC - Miễn phí giao hàng toàn quốc</h2>
+        <a href="/Home/ListProduct/2" class="float-right btn btn-outline-light">Xem tất cả</a>
+    </nav>
+    @*item*@
+</div>
+<div style="height: 1rem"></div>
+<div id="list-laptop" class="row g-3 card-group align-items-center">
+    <nav class="navbar navbar-light bg-danger navbar-title text-light">
+        <h2>Laptop - Miễn phí giao hàng toàn quốc</h2>
+        <a href="/Home/ListProduct/1" class="float-right btn btn-outline-light">Xem tất cả</a>
+    </nav>
+    @*item*@
+</div>
+<div style="height: 1rem"></div>
+<div id="list-monitor" class="row g-3 card-group align-items-center">
+    <nav class="navbar navbar-light bg-danger navbar-title text-light">
+        <h2>Màn hình - Miễn phí giao hàng toàn quốc</h2>
+        <a href="/Home/ListProduct/4" class="float-right btn btn-outline-light">Xem tất cả</a>
+    </nav>
+    @*item*@
+</div>
+<div style="height: 1rem"></div>
+<div id="list-cpu" class="row g-3 card-group align-items-center">
+    <nav class="navbar navbar-light bg-danger navbar-title text-light">
+        <h2>Bàn phím - Miễn phí giao hàng toàn quốc</h2>
+        <a href="/Home/ListProduct/3" class="float-right btn btn-outline-light">Xem tất cả</a>
+    </nav>
+    @*item*@
+</div>
+@section scripts
+{
+    <script>
+        getProductByCategory("list-pc", 2);
+        getProductByCategory("list-laptop", 1);
+        getProductByCategory("list-monitor", 4);
+        getProductByCategory("list-cpu", 3);
+        function addClassByClick(button) {
+            $(button).addClass("active")
+        }
+        function showCategory(id) {
+            $(".gearbaton-category").hide();
+            $(".gearbaton-category").removeClass("list-group-item");
+            $(".list-group-item-action").removeClass("active");
+            $("#" + id).show();
+            $("#" + id).addClass("list-group-item");
+        }
+        function getProductByCategory(name, categoryId) {
+            $.ajax({
+                url: "/Home/PartialHomeProduct",
+                type: "GET",
+                data: { id: categoryId },
+                success: function (data) {
+                    $("#" + name).append(data);
+                },
+                error: function (xhr, status, error) {
+                    alert(xhr.responseText);
+                }
+            });
+        }
+    </script>
+}

@@ -1,0 +1,36 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="dropdown text-end">
+            <a href="#" class="d-block link-light text-decoration-none dropdown-toggle" id="dropdownUser"
+               data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="https://github.com/dongcodebmt.png" alt="mdo" width="32" height="32" class="rounded-circle">
+            </a>
+            <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser" style="">
+                <li><a class="dropdown-item" href="#">Hello @User.Identity.GetUserName()!</a></li>
+                <li>
+                    @if (User.IsInRole("Administrator") || User.IsInRole("Manager") || User.IsInRole("Employee"))
+                    {
+                        @Html.ActionLink("Quản lý website", "Index", "Invoice", routeValues: null, htmlAttributes: new { title = "Quản lý", @class = "dropdown-item" })
+                    }
+                </li>
+                <li>@Html.ActionLink("Đơn hàng của tôi", "MyOrder", "Home", routeValues: null, htmlAttributes: new { title = "Đơn hàng của tôi", @class = "dropdown-item" })</li>
+                <li>@Html.ActionLink("Đổi mật khẩu", "ChangePassword", "Manage", routeValues: null, htmlAttributes: new { title = "Đổi mật khẩu", @class = "dropdown-item" })</li>
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item" href="javascript:document.getElementById('logoutForm').submit()">Đăng xuất</a></li>
+            </ul>
+        </div>
+    }
+}
+else
+{
+<div class="text-end">
+    @Html.ActionLink("Đăng nhập", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "btn btn-outline-light me-2", type = "button" })
+    @Html.ActionLink("Đăng ký", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "btn btn-outline-warning", type = "button" })
+</div>
+}
